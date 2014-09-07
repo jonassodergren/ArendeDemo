@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bpmn:definitions targetNamespace="http://www.omg.org/spec/BPMN/20100524/MODEL" expressionLanguage="http://www.w3.org/1999/XPath" typeLanguage="http://www.w3.org/2001/XMLSchema" exporter="jBPMN NB" exporterVersion="0.3" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:jbpmn="http://jbpmn.java.net" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL">
+    <bpmn:process isClosed="false" name="harmoniseringsProcess" id="_14100356553321">
+        <bpmn:startEvent isInterrupting="true" parallelMultiple="false" id="_1410035702537">
+            <bpmn:extensionElements>
+                <jbpmn:ShapeDesign>{"outer":{"background":{"startColor":"RGB(255,255,255)","endColor":"RGB(226,232,236)"},"border":{"color":"RGB(108,142,183)","width":1.0}},"inner":{"background":{"startColor":"RGB(255,255,255)","endColor":"RGB(255,248,159)"},"border":{"color":"RGB(30,69,123)","width":1.0}}}</jbpmn:ShapeDesign>
+            </bpmn:extensionElements>
+            <bpmn:outgoing>_1410035878492</bpmn:outgoing>
+        </bpmn:startEvent>
+        <bpmn:userTask implementation="##unspecified" isForCompensation="false" startQuantity="1" completionQuantity="1" name="Fatta beslut" id="_1410035714208">
+            <bpmn:extensionElements>
+                <jbpmn:ShapeDesign>{"outer":{"background":{"startColor":"RGB(255,255,255)","endColor":"RGB(226,232,236)"},"border":{"color":"RGB(108,142,183)","width":2.5}},"inner":{"background":{"startColor":"RGB(255,255,255)","endColor":"RGB(255,248,159)"},"border":{"color":"RGB(30,69,123)","width":1.0}}}</jbpmn:ShapeDesign>
+            </bpmn:extensionElements>
+            <bpmn:incoming>_1410035803710</bpmn:incoming>
+            <bpmn:outgoing>_1410035806920</bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:serviceTask implementation="##WebService" isForCompensation="false" startQuantity="1" completionQuantity="1" name="Starta Ärende" id="_1410035768006">
+            <bpmn:extensionElements>
+                <jbpmn:ShapeDesign>{"outer":{"background":{"startColor":"RGB(255,255,255)","endColor":"RGB(226,232,236)"},"border":{"color":"RGB(108,142,183)","width":2.5}},"inner":{"background":{"startColor":"RGB(255,255,255)","endColor":"RGB(255,248,159)"},"border":{"color":"RGB(30,69,123)","width":1.0}}}</jbpmn:ShapeDesign>
+            </bpmn:extensionElements>
+            <bpmn:incoming>_1410035881293</bpmn:incoming>
+            <bpmn:outgoing>_1410035803710</bpmn:outgoing>
+        </bpmn:serviceTask>
+        <bpmn:endEvent id="_1410035796781">
+            <bpmn:extensionElements>
+                <jbpmn:ShapeDesign>{"outer":{"background":{"startColor":"RGB(255,255,255)","endColor":"RGB(226,232,236)"},"border":{"color":"RGB(108,142,183)","width":3.0}},"inner":{"background":{"startColor":"RGB(30,69,123)","endColor":"RGB(30,69,123)"},"border":{"color":"RGB(30,69,123)","width":1.4}}}</jbpmn:ShapeDesign>
+            </bpmn:extensionElements>
+            <bpmn:incoming>_1410035806920</bpmn:incoming>
+        </bpmn:endEvent>
+        <bpmn:sequenceFlow sourceRef="_1410035768006" targetRef="_1410035714208" id="_1410035803710"/>
+        <bpmn:sequenceFlow sourceRef="_1410035714208" targetRef="_1410035796781" id="_1410035806920"/>
+        <bpmn:scriptTask isForCompensation="false" startQuantity="1" completionQuantity="1" name="Validera" id="_1410035858709">
+            <bpmn:extensionElements>
+                <jbpmn:ShapeDesign>{"outer":{"background":{"startColor":"RGB(255,255,255)","endColor":"RGB(226,232,236)"},"border":{"color":"RGB(108,142,183)","width":2.5}},"inner":{"background":{"startColor":"RGB(255,255,255)","endColor":"RGB(255,248,159)"},"border":{"color":"RGB(30,69,123)","width":1.0}}}</jbpmn:ShapeDesign>
+            </bpmn:extensionElements>
+            <bpmn:incoming>_1410035878492</bpmn:incoming>
+            <bpmn:outgoing>_1410035881293</bpmn:outgoing>
+        </bpmn:scriptTask>
+        <bpmn:sequenceFlow sourceRef="_1410035702537" targetRef="_1410035858709" id="_1410035878492"/>
+        <bpmn:sequenceFlow sourceRef="_1410035858709" targetRef="_1410035768006" id="_1410035881293"/>
+    </bpmn:process>
+    <bpmndi:BPMNDiagram>
+        <bpmndi:BPMNPlane bpmnElement="_14100356553321" id="_14100356553342_p">
+            <bpmndi:BPMNShape bpmnElement="_1410035702537" id="_1410035702537_gui">
+                <omgdc:Bounds x="58.0" y="44.0" width="42.0" height="42.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="_1410035714208" id="_1410035714208_gui">
+                <omgdc:Bounds x="555.0" y="33.0" width="80.0" height="64.0"/>
+                <bpmndi:BPMNLabel>
+                    <omgdc:Bounds x="561.0" y="106.0" width="65.0" height="17.0"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="_1410035768006" id="_1410035768006_gui">
+                <omgdc:Bounds x="368.0" y="33.0" width="80.0" height="64.0"/>
+                <bpmndi:BPMNLabel>
+                    <omgdc:Bounds x="368.0" y="106.0" width="78.0" height="17.0"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="_1410035796781" id="_1410035796781_gui">
+                <omgdc:Bounds x="725.0" y="44.0" width="42.0" height="42.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge bpmnElement="_1410035803710" id="_1410035803710_gui">
+                <omgdi:waypoint x="444.0" y="64.0"/>
+                <omgdi:waypoint x="556.0" y="64.0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="_1410035806920" id="_1410035806920_gui">
+                <omgdi:waypoint x="633.0" y="64.0"/>
+                <omgdi:waypoint x="725.0" y="64.0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape bpmnElement="_1410035858709" id="_1410035858709_gui">
+                <omgdc:Bounds x="182.0" y="33.0" width="80.0" height="64.0"/>
+                <bpmndi:BPMNLabel>
+                    <omgdc:Bounds x="198.0" y="106.0" width="46.0" height="17.0"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge bpmnElement="_1410035878492" id="_1410035878492_gui">
+                <omgdi:waypoint x="100.0" y="65.0"/>
+                <omgdi:waypoint x="183.0" y="65.0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="_1410035881293" id="_1410035881293_gui">
+                <omgdi:waypoint x="260.0" y="64.0"/>
+                <omgdi:waypoint x="366.0" y="64.0"/>
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</bpmn:definitions>

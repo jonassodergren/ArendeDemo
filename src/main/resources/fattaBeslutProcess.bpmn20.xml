@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions id="definitions"
+             targetNamespace="http://activiti.org/bpmn20" 
+             xmlns:activiti="http://activiti.org/bpmn"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+        
+    <process id="fattaSanktionsBeslut" name="Fatta sanktionsbeslut inom harmoniseringen">
+          
+        <startEvent id="theStart" />
+            
+        <sequenceFlow id='flow0' sourceRef='theStart' targetRef='skapaArende' />
+          
+          
+        <serviceTask id="skapaArende" 
+                     name="Skapa ärende" 
+                     activiti:class="se.home.arande.process.SkapaArandeInvoker" />
+        
+        <sequenceFlow id='flow10' sourceRef='skapaArende' targetRef='fordelaArende' />
+          
+          
+        <serviceTask id="fordelaArende" 
+                     name="Skapa ärende" 
+                     activiti:class="se.home.arande.process.FordelaArendeInvoker" />
+          
+        <sequenceFlow id='flow1' sourceRef='fordelaArende' targetRef='fattaBeslut' />
+            
+        <userTask id="fattaBeslut" name="Fatta beslut" >
+            <documentation>
+                Fatta sanktionsbeslut
+            </documentation>
+            <extensionElements>
+                <activiti:taskListener event="create" class="se.home.arande.AssignmentHandler" />
+            </extensionElements>
+            <!--
+            <potentialOwner>
+                <resourceAssignmentExpression>
+                    <formalExpression>accountancy</formalExpression>
+                </resourceAssignmentExpression>
+            </potentialOwner>
+            -->
+        </userTask>
+            
+        <sequenceFlow id='flow2' sourceRef='fattaBeslut' targetRef='kommuniceraBeslut' />
+              
+        <userTask id="kommuniceraBeslut" name="Kommunicera beslut" >
+            <documentation>
+                Kommunicera beslut med kunden  
+            </documentation>
+            <humanPerformer>
+                <resourceAssignmentExpression>
+                    <formalExpression>kalle</formalExpression>
+                </resourceAssignmentExpression>
+            </humanPerformer>
+        </userTask>
+           
+        <sequenceFlow id='flow3' sourceRef='kommuniceraBeslut' targetRef='theEnd' />
+             
+        <endEvent id="theEnd" />
+              
+    </process>
+        
+</definitions>
