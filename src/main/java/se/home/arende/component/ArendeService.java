@@ -20,32 +20,37 @@ public class ArendeService {
 
     private static List<Arende> aranden = new ArrayList();
 
-    
-    public static UUID registrera(String dokument,int typAvHandling){
+    public static UUID registrera(String dokument, int typAvHandling) {
         UUID id = UUID.randomUUID();
         Arende arende = new Arende(id);
-        Handelse handelse = arende.rapporteraFramsteg(0);        
-        
+        Handelse handelse = arende.rapporteraFramsteg(0);
+
         Handling handling = handelse.createHandling(typAvHandling);
         handling.setDokument(dokument);
         arende.addHandling(handling);
-        
+
         aranden.add(arende);
-        
+
         return arende.getId();
     }
-    
-        public static void besluta(UUID id, String beslut){
+
+    public static void besluta(UUID id, String beslut) {
         Arende arende = getArende(id);
-        Handelse handelse = arende.rapporteraFramsteg(1);                
-        
+        Handelse handelse = arende.rapporteraFramsteg(1);
+
         Handling handling = handelse.createHandling(0);
         handling.setDokument(beslut);
-        arende.addHandling(handling);       
-        
+        arende.addHandling(handling);
+
         return;
     }
-    
+        public static void avsluta(UUID id) {
+        Arende arende = getArende(id);
+        Handelse handelse = arende.rapporteraFramsteg(3);
+
+        return;
+    }
+
     public static UUID skapaNyttArande() {
         UUID id = UUID.randomUUID();
         Arende arande = new Arende(id);
@@ -86,7 +91,8 @@ public class ArendeService {
         }
         return null;
     }
-        public static Arende getArende(UUID id) {
+
+    public static Arende getArende(UUID id) {
         for (Arende arende : aranden) {
             if (arende.getId().equals(id)) {
                 return arende;
@@ -94,6 +100,5 @@ public class ArendeService {
         }
         return null;
     }
-    
 
 }
