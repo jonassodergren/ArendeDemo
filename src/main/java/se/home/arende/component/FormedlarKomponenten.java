@@ -4,22 +4,16 @@
  * and open the template in the editor.
  */
 
-package se.home.arande;
+package se.home.arende.component;
 
 /**
  *
  * @author jonas
  */
-public class BusinessEvent {
+public class FormedlarKomponenten {
     
-    private String type;
-    
-    public BusinessEvent(String type){
-        this.type = type;
-    }
-
-    public String getType() {
-        return type;
+    public static String arbetsfördela(String typAvProcess, String pnr){      
+        return "kermit";
     }
     
 }

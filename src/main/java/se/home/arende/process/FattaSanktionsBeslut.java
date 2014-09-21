@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 
-package se.home.arande.process;
+package se.home.arende.process;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.activiti.engine.RuntimeService;
-import se.home.arande.BusinessEvent;
-import se.home.arande.Callback;
+import se.home.arende.component.Callback;
+import se.home.arende.domain.BusinessEvent;
 
 /**
  *
@@ -24,6 +26,9 @@ public class FattaSanktionsBeslut implements Callback{
 
     @Override
     public void receiveEvent(BusinessEvent event) {
-        String procId = runtimeService.startProcessInstanceByKey("fattaSanktionsBeslut").getId();
+      //  String procId = runtimeService.startProcessInstanceByKey("fattaSanktionsBeslut").getId();
+        Map<String,Object> processVars = new HashMap();
+        processVars.put("id", 17);
+        runtimeService.startProcessInstanceByMessage("avvikelseIntraffadMessage", "startMessage",processVars);        
     }
 }

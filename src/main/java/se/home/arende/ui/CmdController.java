@@ -10,12 +10,16 @@ import asg.cliche.Command;
 import asg.cliche.Param;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
-import se.home.arande.ArendeService;
-import se.home.arande.BusinessEvent;
-import se.home.arande.BusinessLog;
+import se.home.arende.component.ArendeService;
+import se.home.arende.component.BusinessLog;
+import se.home.arende.domain.Arende;
+import se.home.arende.domain.BusinessEvent;
+import se.home.arende.domain.Handelse;
+import se.home.arende.domain.Handling;
 
 /**
  *
@@ -33,15 +37,17 @@ public class CmdController {
         this.taskService = engine.getTaskService();
     }
     
-    @Command(name="Uppföljning sökande",abbrev="ra", description="Rapportera avvikelse från överenskommelse i uppföljningen")
+    @Command(name="Uppföljning sökande",abbrev="rapport", description="Rapportera avvikelse från överenskommelse i uppföljningen")
     public String rapporteraAvvikelse(@Param(name="pnr", description="Personnummer")String orgNummer,@Param(name="Meddelande", description="Beskrivning av avvikelsen")String beskrivning) {
        BusinessLog.avrapportera(new BusinessEvent("Avvikelse inkommen"));
        return "Avvikelse rapporterad";
     }   
     
-    @Command(name="Mina pågående ärenden",abbrev="mpa", description="Översikt över mina pågående ärenden")
+    @Command(name="Mina pågående ärenden",abbrev="arenden", description="Översikt över mina pågående ärenden")
     public List<String> minaArenden(){
         List<String> arenden = ArendeService.listaAranden();
+        for(String arende:arenden)
+            arende = "ArendeId:"+arende+" Ärendemening: Sanktionsutredning" ;
         if(arenden.isEmpty())
             arenden.add("Inga pågående ärenden");
         return arenden;
@@ -61,8 +67,16 @@ public class CmdController {
     }
     
     @Command(name="slutför arbetsuppgift",abbrev="klar", description="Klarmarkera arbetsuppgift")
-    public String klarmarkeraArbetsuppgift(@Param(name="id", description="id på arbetsuppgift som är klar")String id){
+    public String klarmarkeraArbetsuppgift(@Param(name="id", description="id på arbetsuppgift som är klar")String id){                
        taskService.complete(id);
+       return "Arbetsuppgift klarmarkerad";
+    } 
+    
+        @Command(name="Fatta beslut",abbrev="beslut", description="Fatta beslut")
+    public String besluta(@Param(name="id", description="id på arbetsuppgift som beslutet avser")String id, @Param(name="beslut", description="Det fattade beslutet")String beslut){                      
+       ArendeService.besluta(UUID.fromString( ArendeService.listaAranden().get(0) ), beslut);
+        
+        taskService.complete(id);
        return "Arbetsuppgift klarmarkerad";
     } 
     
@@ -71,5 +85,34 @@ public class CmdController {
        currentUser = user;
        return "Inloggad användare bytt till: "+currentUser;
     }    
+    
+    @Command(name="Grundinformation i ärendet",abbrev="grund", description="Visa grundinformation i ärendet")
+    public String getGrundInfoIArende(@Param(name="id", description="ÄrendeId")String id){
+        return ArendeService.getgrundInfo(UUID.fromString( ArendeService.listaAranden().get(Integer.parseInt(id)) ));
+        
+        //return ArendeService.getgrundInfo(UUID.fromString(id));
+    }
+    
+    @Command(name="Händelser i ärendet",abbrev="handelser", description="Visa händelser som inträffat i ärendet")
+    public List<String> getHandelserIArende(@Param(name="id", description="ÄrendeId")String id){
+        Arende arende = ArendeService.getArende(UUID.fromString( ArendeService.listaAranden().get(Integer.parseInt(id)) ));
+        List<Handelse> handelser = arende.getHandelser();
+        List<String> handelserText = new ArrayList<String>();
+        for (Handelse handelse:handelser){
+            handelserText.add("Handelse :"+handelse.getName());
+        }
+        return handelserText;
+    } 
+    
+    @Command(name="Handlingar i ärendet",abbrev="handlingar", description="Visa handlingar kopplade till ärendet")
+    public List<String> getHandlingarIArende(@Param(name="id", description="ÄrendeId")String id){
+        Arende arende = ArendeService.getArende(UUID.fromString( ArendeService.listaAranden().get(Integer.parseInt(id)) ));
+        List<Handling> handlingar = arende.getHandlingar();
+        List<String> handlingarText = new ArrayList<String>();
+        for (Handling handling:handlingar){
+            handlingarText.add("Handling :"+handling.getDokument());
+        }
+        return handlingarText;
+    } 
     
 }

@@ -4,16 +4,22 @@
  * and open the template in the editor.
  */
 
-package se.home.arande;
+package se.home.arende.domain;
 
 /**
  *
  * @author jonas
  */
-public class Uppfoljning {
+public class BusinessEvent {
     
-    public void rapporteraAvvikelse(){
-        BusinessLog.avrapportera(new BusinessEvent("Avvikelse inkommen"));
+    private String type;
+    
+    public BusinessEvent(String type){
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
     }
     
 }

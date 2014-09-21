@@ -4,16 +4,16 @@
  * and open the template in the editor.
  */
 
-package se.home.arande;
+package se.home.arende.component;
+
+import se.home.arende.domain.BusinessEvent;
 
 /**
  *
  * @author jonas
  */
-public class FormedlarKomponenten {
+public interface Callback {
     
-    public static String arbetsfördela(String typAvProcess, String pnr){      
-        return "kermit";
-    }
+    public void receiveEvent(BusinessEvent event);
     
 }

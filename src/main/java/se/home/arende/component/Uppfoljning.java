@@ -4,14 +4,18 @@
  * and open the template in the editor.
  */
 
-package se.home.arande;
+package se.home.arende.component;
+
+import se.home.arende.domain.BusinessEvent;
 
 /**
  *
  * @author jonas
  */
-public interface Callback {
+public class Uppfoljning {
     
-    public void receiveEvent(BusinessEvent event);
+    public void rapporteraAvvikelse(){
+        BusinessLog.avrapportera(new BusinessEvent("Avvikelse inkommen"));
+    }
     
 }

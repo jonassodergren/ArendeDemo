@@ -3,33 +3,38 @@
              targetNamespace="http://activiti.org/bpmn20" 
              xmlns:activiti="http://activiti.org/bpmn"
              xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
-        
-    <process id="fattaSanktionsBeslut" name="Fatta sanktionsbeslut inom harmoniseringen">
+       
+     
+    <message id="avvikelseIntraffad" name="avvikelseIntraffadMessage" />
+    
+    <process id="fattaSanktionsBeslut" name="Fatta beslut">
           
-        <startEvent id="theStart" />
+        <startEvent id="theStart" >
+            <messageEventDefinition messageRef="avvikelseIntraffad" />
+        </startEvent>
             
         <sequenceFlow id='flow0' sourceRef='theStart' targetRef='skapaArende' />
           
           
         <serviceTask id="skapaArende" 
                      name="Skapa ärende" 
-                     activiti:class="se.home.arande.process.SkapaArandeInvoker" />
+                     activiti:class="se.home.arende.process.SkapaArandeInvoker" />
         
         <sequenceFlow id='flow10' sourceRef='skapaArende' targetRef='fordelaArende' />
           
           
         <serviceTask id="fordelaArende" 
                      name="Skapa ärende" 
-                     activiti:class="se.home.arande.process.FordelaArendeInvoker" />
+                     activiti:class="se.home.arende.process.FordelaArendeInvoker" />
           
         <sequenceFlow id='flow1' sourceRef='fordelaArende' targetRef='fattaBeslut' />
             
         <userTask id="fattaBeslut" name="Fatta beslut" >
             <documentation>
-                Fatta sanktionsbeslut
+                Fatta beslut
             </documentation>
             <extensionElements>
-                <activiti:taskListener event="create" class="se.home.arande.AssignmentHandler" />
+                <activiti:taskListener event="create" class="se.home.arende.component.AssignmentHandler" />
             </extensionElements>
             <!--
             <potentialOwner>

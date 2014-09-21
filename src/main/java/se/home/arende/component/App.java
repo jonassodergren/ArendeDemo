@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package se.home.arande;
+package se.home.arende.component;
 
 import java.util.List;
 import org.activiti.engine.ProcessEngine;
@@ -13,7 +13,7 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.task.Task;
-import se.home.arande.process.FattaSanktionsBeslut;
+import se.home.arende.process.FattaSanktionsBeslut;
 import se.home.arende.ui.CLI;
 
 /**

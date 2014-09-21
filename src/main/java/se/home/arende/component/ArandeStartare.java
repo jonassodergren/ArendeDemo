@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 
-package se.home.arande;
+package se.home.arende.component;
+
+import se.home.arende.domain.BusinessEvent;
 
 /**
  *
